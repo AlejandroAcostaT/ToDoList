@@ -1,0 +1,5 @@
+CREATE TABLE task(
+		id INTEGER PRIMARY KEY,
+		title TEXT,
+		state INTEGER
+);

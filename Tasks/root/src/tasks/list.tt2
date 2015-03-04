@@ -1,0 +1,39 @@
+[% # This is a TT comment. -%]
+
+[%- # Provide a title -%]
+[% META title = 'Lista de Tareas' -%]
+
+[% # Note That the '-' at the beginning or end of TT code  -%]
+[% # "chomps" the whitespace/newline at that end of the    -%]
+[% # output (use View Source in browser to see the effect) -%]
+
+[% # Some basic HTML with a loop to display books -%]
+<center>
+<table id='table'>
+<tr>
+	<th>Titulo</th>
+	<th>Estado</th>
+	<th>Fecha creada</th>
+	<th>Fecha editada</th>
+	<th>Editar</th>
+	<th>Eliminar</th>
+</tr>
+[% # Display each task in a table row %]
+[% FOREACH task IN tasks -%]
+  <tr>
+    <td>[% task.title %]</td>
+    <td>[% IF task.state == 0%]Pendiente[% ELSE %]Completada[% END %]</td>
+    <td>[% task.created %]</td>
+    <td>[% task.updated %]</td>
+    <td>
+    	[% IF task.state == 0%]
+    		<a href="[%c.uri_for(c.controller.action_for('complete'), [task.id]) %]">Marcar Tarea</a>
+    	[% ELSE %]
+    		<a href="[%c.uri_for(c.controller.action_for('uncomplete'), [task.id]) %]">Desmarcar Tarea</a>
+    	[% END %]
+    	</td>
+    <td><a href="[%c.uri_for(c.controller.action_for('delete'), [task.id]) %]">Eliminar</a></td>
+  </tr>
+[% END -%]
+</table>
+</center>
